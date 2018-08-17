@@ -1,0 +1,966 @@
+ /*
+ * @Author naseem@sdrc.co.in.
+ * This js is responsible for registering a new child into the system and generate a unique id for
+ * the child. This file is also responsible for printing and downloading the form in pdf format.
+ */
+myAppConstructor.controller('BasicForm17', function($scope, $http, $filter, commonService, $window, $timeout, gettextCatalog){
+	$scope.lang="hi_IN";
+	$http({
+        method : "GET",
+        url : "getLang"
+    }).then(function mySucces(response) {
+    	$scope.lang=response.data;
+    	$scope.changeLanguage($scope.lang);
+});
+	
+	$scope.changeLanguage = function(lang){
+	console.log(lang)
+	$scope.lang=lang;
+	   gettextCatalog.setCurrentLanguage(lang);
+	   
+	   $http({
+	        method : "GET",
+	        url : "setLangString?language="+$scope.lang
+	    }).then(function mySucces(response) {
+	    	
+	});
+}	
+	
+//	$scope.user = $('#userValue').val();
+//	console.log($scope.user);
+//	var loginUser={};
+//	var jsonString = document.getElementById('userValue').value;
+//	console.log(document.getElementById('userValue').value);
+//	var loginUser = JSON.parse(jsonString.slice(1,jsonString.length-1));
+//	var loginUser = JSON.parse(jsonString);
+//	console.log(loginUser);
+//	$scope.loginUser = JSON.parse('{"userName":"cwc_agra"}');
+	$scope.selectedChildId=$('#modelValue').val();
+	$scope.cwcList = [];
+	$scope.otherOrganizationFlag = false;
+	$scope.childId = "";
+	$scope.child = {};
+	
+	$http.post("getNotificationCount").then(
+			function(response) {
+				$scope.notificationCount=response.data;
+			},
+			function(error){
+				console.log(error);
+			});
+	
+	
+	if(document.getElementById('userValue')!=null){
+		$scope.userId=document.getElementById('userValue').value;
+	}
+	if(document.getElementById('areaValue')!=null){
+		$scope.areaId=document.getElementById('areaValue').value;
+	}
+    $scope.formInfo={
+    		policeInformed : "No"
+    };
+	$scope.regex = '/^[0-9]{10,10}$/';
+	$scope.childImage = "resources/img/photo.jpg";
+	$scope.defaultImage = "resources/img/photo.jpg";
+	
+	$scope.min 	=	["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"];
+    $scope.hour =	["01","02","03","04","05","06","07","08","09","10","11","12"];
+	$scope.ampm	=	["AM", "PM"];
+	$scope.checkAllDataSuccessful = function(){
+		if($scope.getGridMenuItemsSuccessful && $scope.getChildRegMstDataSuccessful 
+				&& $scope.getTypeDetailsSuccessful && $scope.getChildByIdSuccessful
+				&& $scope.getChildSuccessful){
+			$(".loader").css("display", "none");
+		}
+	};
+	$scope.getGridMenuItemsSuccessful = false;
+	$scope.getChildRegMstDataSuccessful = false;
+	$scope.getTypeDetailsSuccessful = false;
+	$(".loader").css("display", "block");
+	commonService.getGridMenuItems()
+	.then(function (result){
+		$scope.getGridMenuItemsSuccessful = true;
+		$scope.checkAllDataSuccessful();
+		$scope.menuList=result;
+		//console.log(result);
+	});
+        	 
+    $http.get("getChildRegMstData").
+    then(function(result){
+    	$scope.getChildRegMstDataSuccessful = true;
+		$scope.checkAllDataSuccessful();
+	   	$scope.cwcList=result.data.value.cwcList;
+	    $scope.cciList=result.data.value.cciList;
+	    $scope.sexList = result.data.value.sexList;
+	    $scope.ageList = result.data.value.ageList;
+	    $scope.organizationType = result.data.value.organizationType;
+	    
+	   angular.forEach($scope.cwcList,function(value,key){
+		   if(value.userId==$scope.userId || value.areaId==$scope.areaId){
+			   $scope.cwcDisable=true;
+			   $scope.childWelfareCommittee=value;
+			   $scope.formInfo.childWelfareCommittee=value;
+			   $scope.formInfo.childProducedPlace = $scope.formInfo.childWelfareCommittee.areaName;
+			   $scope.printFitData.nameOfchildWelfareCommittee=value.name;
+		   }
+//		   else{
+//			   $scope.cwcDisable=false;
+//		   }
+	   });
+    }, function(error){
+    	console.log(error);
+    });	 
+    
+    $http.get('getTypeDetails').
+    then(function(result){
+    	$scope.getTypeDetailsSuccessful = true;
+		$scope.checkAllDataSuccessful();
+    	$scope.childSex = result.data.childSex;
+	console.log(result.data);
+   }, function(error){
+	   console.log(error);
+   });
+    
+    $scope.redirectForm=function(url){
+		if(url=="child_registration" || url=="ciclSocialBackgroundReport" || url=="reportSummary" || url=="constitutionofSociety"){
+			commonService.redirectForm(url, $scope.selectedChildId);
+		}else{
+			if($scope.selectedChildId==null || $scope.selectedChildId == undefined 
+				|| $scope.selectedChildId == ""){
+				$('#noChildSelected').modal('show');
+			}else{
+				commonService.redirectForm(url, $scope.selectedChildId);
+			}
+		}
+	};
+	
+	$("#datepicker").datepicker({dateFormat: "yy-mm-dd", maxDate: '+0d', changeYear: true ,
+		onSelect: function(date) {
+			$scope.formInfo.childProducedDate = date;
+		}	
+	});
+ //validate adhar card
+    
+    $scope.validateAdharCard = function (name, errorId){
+    	if(name != undefined){
+ 		   if( name.length != 12 && name != ""  ){
+ 	        	if(errorId=='adharcardError1' || errorId=='adharcardError3') {
+ 	        		document.getElementById(errorId).innerHTML = "Please enter 12 digit aadhaar number";
+ 	        		document.basicdetail.ciclChildAdhaarCardNo.focus() ;
+ 	        		return false;
+ 	        	}
+ 	        	
+ 	       }else{
+ 	    	   document.getElementById(errorId).innerHTML = "";
+ 	    	   return true;
+ 	       }
+ 	   } else{
+ 		  if(errorId=='adharcardError1' || errorId=='adharcardError3') {
+       		document.getElementById(errorId).innerHTML = "Please enter 12 digit aadhaar number";
+       		document.basicdetail.ciclChildAdhaarCardNo.focus() ;
+       		return false;
+       	}
+ 	   }  
+    };
+    
+   
+    
+    $scope.resetAdharNo = function(model,id,errorId){
+    	if(model == undefined){
+  			$("#"+id).val('');
+  			document.getElementById(errorId).innerHTML = "";
+  			$scope.formInfo.adhaarCardNo="";
+  		}
+  	};
+    
+    
+    $scope.clearImageField = function(type){
+    	switch(type){
+		case 'childImage':
+			$timeout(function() {
+				$scope.childImage = $scope.defaultImage;
+		    }, 100);
+			break;
+    	}
+    };
+    $scope.resetphnNo = function(model,id){
+    	if(model == undefined){
+    		$("#"+id).val('');
+    	}
+    }
+    
+	$scope.getBase64=function(file, type) {
+	 	var reader = new FileReader();
+	 	reader.readAsDataURL(file);
+	 	reader.onload = function () {
+	 		switch(type){
+	 			case 'childImage':
+	 				$timeout(function() {
+	 					$scope.childImage=reader.result;
+	 			    }, 100);
+	 				break;
+	 		}
+	 	};
+	 	reader.onerror = function (error) {
+//	 	 console.log('Error: ', error);
+	 	};
+	};
+	
+	$scope.getReport = function ($files,type) {
+		var validFormats = ["jpg","JPG","jpeg","JPEG","png","PNG"];
+		var checkFile = false;
+	     angular.forEach($files, function (value, key) {
+	    	 var ext = value.name.split(".").pop();
+	    	 if(validFormats.indexOf(ext) == -1){
+		    		$('#errorImageModal').modal('show');
+		    		commonService.clearUploadFile();
+		    		$scope.clearImageField(type);
+		         } else{
+		        	 $scope.getBase64(value, type);
+		        	 checkFile = true;
+		         }
+	     });
+	     if(checkFile == true){
+	    	 $scope.clearImageField(type);   
+	     }
+	     if($files.length == 0){
+	    	 $scope.clearImageField(type);   
+	     };
+	};
+	
+    $scope.saveData = function (){
+    	
+    	var str = $scope.hr+":"+$scope.minute+" "+$scope.ap;
+    	var str2 = $scope.hr2+":"+$scope.minute2+" "+$scope.ap2;
+    	
+		if($scope.formInfo.policeInformed == "Yes")
+			  $scope.formInfo.policeInformed=1;
+		else
+			  $scope.formInfo.policeInformed=0;
+		  
+	  	if(str.split(" ")[1] == "PM" && $scope.hr!="12")
+				  $scope.hr = parseInt($scope.hr)+12;
+	  	
+	  	if(str2.split(" ")[1] == "PM" && $scope.hr2!="12")
+				  $scope.hr2 = parseInt($scope.hr2)+12;
+	  
+	  	if($scope.hr2 === undefined || $scope.hr2 === "")
+	  		$scope.formInfo.childCameToCCITime = "00:00:00";
+	  	else
+	  		$scope.formInfo.childCameToCCITime = $scope.hr2+":"+$scope.minute2+":00";
+	  	$scope.formInfo.formLang=$scope.lang;
+	  	$scope.formInfo.childProducedTime = $scope.hr+":"+$scope.minute+":00";
+	  	$scope.formInfo.childProducedPlace = $scope.formInfo.childWelfareCommittee.areaId;
+	  	$scope.formInfo.childProducedPlaceName = $scope.formInfo.childWelfareCommittee.areaName;
+	  	$scope.formInfo.childWelfareCommittee = $scope.formInfo.childWelfareCommittee.userId;
+	  
+		  console.log($scope.formInfo);  
+		  
+//		  var formObject = $scope.formInfo;     
+		  
+		  $scope.formInfo.childImage = $scope.childImage == $scope.defaultImage ? null : $scope.childImage;
+		  $scope.formInfo.parentAddress = $scope.formInfo.parentAddress.replace(/\n/g, " ");
+		  $scope.formInfo.withWhomChildFoundAddress = $scope.formInfo.withWhomChildFoundAddress.replace(/\n/g, " ");
+		  $scope.formInfo.personProducingChildAddress = $scope.formInfo.personProducingChildAddress.replace(/\n/g, " ");
+		  $(".loader").css("display", "block");
+		  $http.post('childRegistration',$scope.formInfo).
+		  then(function(response){
+			  $(".loader").css("display", "none");
+			  $('#childIdModal').modal('show');
+			  $scope.childId=response.data;
+			  checkSessionOut(response.data);
+			  console.log(response);
+		  },function(error){
+		    console.log(error);
+		  });	
+    };
+    $scope.getChildByIdSuccessful = true;
+    if($scope.selectedChildId != undefined){
+    	$scope.getChildByIdSuccessful = false;
+    	$(".loader").css("display", "block");
+	    $http.get("getChildById?selectedChildId="+$scope.selectedChildId).
+	    then(function(result){
+	    	$scope.getChildByIdSuccessful = true;
+			$scope.checkAllDataSuccessful();
+	    	if(result.data.finalOrderFilled==1){
+	    		$scope.finalOrder = true;
+	    	}
+	    	else
+	    		$scope.finalOrder = false;
+	    });
+    };
+    
+    $scope.reDirect = function(){
+    	$window.location.href = 'ccts';
+    };
+    
+    //====================================download pdf============================
+    $scope.printSubmitData = function(){
+    	$(".loader").css("display", "block");
+    	$http.get("getChild?childId="+$scope.childId).
+        then(function(result){
+        	$scope.formInfo.nameOfchildWelfareCommittee = result.data.nameOfchildWelfareCommittee;
+        	$scope.formInfo.nameOfChildProducedPlace = result.data.nameOfChildProducedPlace;
+        	$scope.formInfo.personProducingChildSexType = result.data.personProducingChildSexType;
+        	$scope.formInfo.childAgeValue = result.data.childAgeValue;
+        	$scope.formInfo.childSexType = result.data.childSexObject.name;
+        	$scope.formInfo.childId = $scope.childId;
+
+    		var serverURL = 'downloadPDFDataReport?type='+$scope.lang;
+    		$scope.printFitData = $scope.formInfo;
+    		
+    		$scope.printFitData.childProducedConvertedTime = commonService.timeConverter($scope.formInfo.childProducedTime);
+    		$scope.printFitData.childCameToCCIConvertedTime = commonService.timeConverter($scope.formInfo.childCameToCCITime);
+    		if($scope.printFitData.childCameToCCIConvertedTime == "00:00 AM"){
+    			$scope.printFitData.childCameToCCIConvertedTime = "N/A";
+    		}
+    		
+    		$scope.printFitData.childSexType = commonService.getNameBySelectedLanguageType($scope.printFitData.childSexType, $scope.childSex, $scope.lang);
+    		$scope.printFitData.personProducingChildSexType = commonService.getNameBySelectedLanguageType($scope.printFitData.personProducingChildSexType, $scope.sexList, $scope.lang);
+    		
+    		$scope.printFitData.programType = result.data.programType;
+    		commonService.downloadFile(serverURL, $scope.printFitData);
+    		
+    		$scope.hr = "";
+			$scope.minute = "";
+			$scope.ap = "";
+			$scope.hr2 = "";
+			$scope.minute2 = "";
+			$scope.ap2 = "";
+			$scope.childImage ="resources/img/photo.jpg";
+			commonService.clearUploadFile();
+			
+			$scope.formInfo = {
+					policeInformed : "No",
+					childWelfareCommittee : $scope.childWelfareCommittee,
+					childProducedPlace : $scope.childWelfareCommittee.areaName
+			};
+			$(".loader").css("display", "none");
+        });
+    };
+    
+    $scope.printUpdateData = function(){
+    	$(".loader").css("display", "block");
+    	var serverURL = 'downloadPDFDataReport?type='+$scope.lang;
+    	if($scope.child.policeInformed == "Yes" || $scope.child.policeInformed == 1)
+    		$scope.child.policeInformed = 1;
+    	else
+    		$scope.child.policeInformed = 0;
+    	
+		$scope.printFitData = $scope.child;
+		$scope.printFitData.childProducedConvertedTime = commonService.timeConverter($scope.child.childProducedTime);
+		$scope.printFitData.childCameToCCIConvertedTime = commonService.timeConverter($scope.child.childCameToCCITime);
+		if($scope.printFitData.childCameToCCIConvertedTime == "00:00 AM"){
+			$scope.printFitData.childCameToCCIConvertedTime = "N/A";
+		}
+		
+		$scope.printFitData.childSexType = commonService.getNameBySelectedLanguageType($scope.printFitData.childSexType, $scope.childSex, $scope.lang);
+		$scope.printFitData.personProducingChildSexType = commonService.getNameBySelectedLanguageType($scope.printFitData.personProducingChildSexType, $scope.sexList, $scope.lang);
+		$scope.printFitData.programType = $scope.child.programType;
+    	commonService.downloadFile(serverURL, $scope.printFitData);
+    	
+    	$timeout(function() {
+    		if($scope.child.policeInformed == "Yes" || $scope.child.policeInformed == 1)
+        		$scope.child.policeInformed = "Yes";
+    		else
+        		$scope.child.policeInformed = "No";
+	    }, 100);
+    	
+    };
+     
+	//==================================End ========================================
+    
+    $scope.showOrganizationNameField = function(){
+    	$scope.otherOrganizationFlag = true;
+    	$scope.formInfo.organizationCCISAAName = null;
+    };
+        	  
+    $scope.changeChildProducedPlace = function(selectedCWC){
+    	$scope.formInfo.childProducedPlace = $scope.formInfo.childWelfareCommittee.areaName;
+    };
+        
+//    $scope.validateForm = function (){
+//	    if($scope.formInfo.childProducedDate === undefined){
+//	    	$( "#datepicker" ).datepicker("show");
+//		}else if($scope.childImage == ""){
+//			document.getElementById('imageError').innerHTML = "";
+//		}else{
+//	    	$('#thankyouModal').modal('show');
+//	    }
+//   };
+    $scope.resetTime = function(){
+    	$scope.hr2 = "";
+    	$scope.minute2 = "";
+    	$scope.ap2 = "";
+    	document.getElementById('timeError').innerHTML = "";
+    };
+    
+    $scope.resetphnNoi = function(model,id){
+ 	   if($("#"+id).val() != "" && $("#"+id).val().length != 10){
+ 		   $("#"+id).focus();
+ 		   return true;
+ 	   }
+ 	   else{
+ 		   return false;
+ 	   }
+    };
+    
+    $scope.validateForm = function (){
+       $scope.phnValidation1 = $scope.resetphnNoi($scope.formInfo.parentContactNo,'parentContactNo');
+  	   $scope.phnValidation2 = $scope.resetphnNoi($scope.formInfo.withWhomChildFoundContactNo,'withWhomChildFoundContactNo');
+  	   $scope.ofile = document.getElementById("js-upload-files").files[0];
+  	   if($scope.phnValidation1){
+  		   return false;
+  	   }
+  	   if($scope.phnValidation2){
+  		   return false;
+  	   }
+  	 
+	    if($scope.formInfo.childProducedDate === undefined){
+	    	$( "#datepicker" ).datepicker("show");
+	    }else if($scope.hr2 == "" && $scope.minute2 == "" && $scope.ap2 != ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+	    }else if($scope.hr2 == "" && $scope.ap2 == "" && $scope.minute2 != ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else if($scope.minute2 == "" && $scope.ap2 == "" && $scope.hr2 != ""){
+			document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else if($scope.hr2 != "" && $scope.minute2 != "" && $scope.ap2 == ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+	    }else if($scope.hr2 != "" && $scope.ap2 != "" && $scope.minute2 == ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else if($scope.minute2 != "" && $scope.ap2 != "" && $scope.hr2 == ""){
+			document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else if($scope.childImage == "resources/img/photo.jpg" || $scope.childImage == ""){
+
+		}else if($scope.ofile.size>5242880){
+			document.getElementById('imageError').innerHTML = "Photo size should not be more than 5Mb";
+			$('#js-upload-files').focus();
+		}
+		else{
+			document.getElementById('timeError').innerHTML = "";
+	    	$('#thankyouModal').modal('show');
+	    }
+   };
+   
+   $scope.validateName = function (name, errorId){
+	   
+	   if( name == undefined  ){
+        	if(errorId=='personNameerror') {
+        		document.getElementById(errorId).innerHTML = "Enter alphabets only";
+		        document.basicdetail.personName.focus();
+		        $scope.formInfo.personProducingChildName="";
+	            return false;
+		    }else if(errorId=='childNameError') {
+			    document.getElementById(errorId).innerHTML = "Please enter child name";
+	            document.basicdetail.childName.focus() ;
+	            $scope.formInfo.childName="";
+	            return false;
+	        }else if(errorId=='phoneNoError') {
+  			    document.getElementById(errorId).innerHTML = "Please enter <b>10</b> digit phone number";
+  	            document.basicdetail.personProducingChildContactNo.focus() ;
+  	            return false;
+	        }else if(errorId == "personAgeerror"){
+        		document.getElementById(errorId).innerHTML = "Age cannot be blank";
+	            document.basicdetail.producerAge.focus() ;
+	            $scope.formInfo.personProducingChildAge="";
+	            return false;
+        	}else if(errorId == "parentAgeerror"){
+        			document.getElementById(errorId).innerHTML = "Age cannot be blank";
+        			document.basicdetail.parentAge.focus() ;
+    	            $scope.formInfo.parentAge="";
+    	            return false;
+      	}else if(errorId == "withWhomChildFounderror"){
+			document.getElementById(errorId).innerHTML = "Age cannot be blank";
+            document.basicdetail.withWhomChildFoundAge.focus() ;
+            $scope.formInfo.withWhomChildFoundAge="";
+            return false;
+	}
+       }
+	   
+	   else if( name.length != 10 && name != "" && (errorId != "personAgeerror" && errorId != "parentAgeerror" && errorId != "withWhomChildFounderror") ){
+		   if(errorId=='phoneNoError3') {
+			    document.getElementById(errorId).innerHTML = "Please enter <b>10</b> digit phone number";
+	            document.basicdetail.withWhomChildFoundContactNo.focus() ;
+	            return false;
+	        }
+		   if(errorId=='phoneNoError2') {
+			    document.getElementById(errorId).innerHTML = "Please enter <b>10</b> digit phone number";
+	            document.basicdetail.parentContactNo.focus() ;
+	            return false;
+       }
+	   }
+	   else if((errorId == "personAgeerror" || errorId == "parentAgeerror" || errorId == "withWhomChildFounderror") && name == 0){
+		   document.getElementById(errorId).innerHTML = "Age cannot <b>0</b>";
+		   if(errorId == "personAgeerror")
+		   document.basicdetail.producerAge.focus() ;
+		   if(errorId == "parentAgeerror")
+		   document.basicdetail.parentAge.focus() ;
+		   if(errorId == "withWhomChildFounderror")
+		   document.basicdetail.withWhomChildFoundAge.focus();
+           return false;
+	   }
+	   
+	   else{
+			document.getElementById(errorId).innerHTML = "";
+	        return true;
+	   }
+        
+    };
+    $scope.resetInput = function(model, key,errorId){
+    	if(model[key] == 0){
+    		model[key] = undefined;
+        	document.getElementById(errorId).innerHTML = "";
+    	}
+    };
+    
+	 $scope.editField = function(){
+		 $scope.regDisable=false;
+	 };
+    
+	 $scope.validateUpdate = function(){
+	    if($scope.hr2 == "" && $scope.minute2 == "" && $scope.ap2 != ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+	    }else if($scope.hr2 == "" && $scope.ap2 == "" && $scope.minute2 != ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else if($scope.minute2 == "" && $scope.ap2 == "" && $scope.hr2 != ""){
+			document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else if($scope.hr2 != "" && $scope.minute2 != "" && $scope.ap2 == ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+	    }else if($scope.hr2 != "" && $scope.ap2 != "" && $scope.minute2 == ""){
+	    	document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else if($scope.minute2 != "" && $scope.ap2 != "" && $scope.hr2 == ""){
+			document.getElementById('timeError').innerHTML = "Please enter correct time";
+		}else{
+			document.getElementById('timeError').innerHTML = "";
+			$('#updateModal').modal('show');
+	    }
+	 };
+	 
+	 $scope.updateForm = function (){
+		if($scope.child.policeInformed == "Yes")
+			  $scope.child.policeInformed=1;
+		else
+			  $scope.child.policeInformed=0;
+	
+		var str = $scope.hr+":"+$scope.minute+" "+$scope.ap;
+		if(str.split(" ")[1] == "PM" && $scope.hr!="12")
+		  $scope.hr = parseInt($scope.hr)+12;
+
+		var str2 = $scope.hr2+":"+$scope.minute2+" "+$scope.ap2;
+		if(str2.split(" ")[1] == "PM" && $scope.hr2!="12")
+		  $scope.hr2 = parseInt($scope.hr2)+12;
+		else if(str2.split(" ")[1] == "PM" && $scope.hr2==="12")
+			  $scope.hr2 = parseInt($scope.hr2);
+		else if(str2.split(" ")[1] == "PM" && $scope.hr2>Number('12') || str2.split(" ")[1] == "AM" && $scope.hr2<Number('12') )
+			  $scope.hr2 = parseInt($scope.hr2);
+		else{
+			$scope.hr2 = "00";
+		}
+
+		$scope.child.childProducedTime = $scope.hr+":"+$scope.minute+":00";
+		if($scope.hr2 === undefined || $scope.hr2 === ""){
+		$scope.child.childCameToCCITime = "00:00:00";}
+		
+		else if($scope.hr === undefined || $scope.hr === ""){
+			$scope.child.childProducedTime = "00:00:00";}
+		else
+		$scope.child.childCameToCCITime = $scope.hr2+":"+$scope.minute2+":00";
+    	
+    	  $scope.child.parentAddress = $scope.child.parentAddress.replace(/\n/g, " ");
+		  $scope.child.withWhomChildFoundAddress = $scope.child.withWhomChildFoundAddress.replace(/\n/g, " ");
+		  $scope.child.personProducingChildAddress = $scope.child.personProducingChildAddress.replace(/\n/g, " ");
+		  $(".loader").css("display", "block");
+		  $http.post('updateChild',$scope.child).
+	   then(function(response){
+		   $(".loader").css("display", "none");
+		   $('#childIdModal').modal('show');
+		   checkSessionOut(response.data);
+		   $scope.childId=response.data;
+		   console.log(response);
+	   },function(error){
+	     console.log(error);
+	   });
+  };
+  $scope.hr ="";
+  $scope.ap="";
+  $scope.minute = "";
+  $scope.hr2 ="";
+  $scope.minute2 = "";
+  $scope.ap2="";
+  $scope.regDisable=false;
+  
+  $scope.getChildSuccessful = true;
+  if($scope.selectedChildId != undefined){
+	  $(".loader").css("display", "block");
+	  $scope.getChildSuccessful = false;
+	 $http.get("getChild?childId="+$scope.selectedChildId).
+	  then(function(result){
+		  $scope.getChildSuccessful = true;
+			$scope.checkAllDataSuccessful();
+		  $scope.child=result.data;
+		  if($scope.child.policeInformed == true)
+			  $scope.child.policeInformed="Yes";
+		  else
+			  $scope.child.policeInformed="No";
+	
+		  $scope.formInfo=$scope.child;
+	
+		  if($scope.child!=null){
+			  $scope.regDisable=true;
+		  }
+		   	
+			
+		   	
+		  var a = $scope.child.childProducedTime.split(":");
+		   	
+		  if( a[0]>12){
+			  if(a[0]-12>0 && a[0]-12<10)
+				  $scope.hr="0"+(a[0]-12).toString(); 
+			  
+			  else
+				  $scope.hr=(a[0]-12).toString();
+			  
+			  $scope.minute = a[1];
+			  $scope.ap="PM";
+		  } else if(a[0]==="00"){
+			  $scope.hr="12";
+			  $scope.minute = a[1];
+			  $scope.ap="AM"; 
+		  } else{
+			  $scope.hr=a[0];
+			  $scope.minute = a[1];
+			  $scope.ap="AM";  
+		  }
+		  
+		  var b = $scope.child.childCameToCCITime.split(":");
+		  	if( b[0]>12){
+		  		if(b[0]-12>0 && b[0]-12<10)
+		  			$scope.hr2="0"+(b[0]-12).toString();
+		  		else 
+		  			$scope.hr2=(b[0]-12).toString();
+		  		
+			  $scope.minute2 = b[1];
+			  $scope.ap2="PM";
+	       } else if(b[0]==="00"){
+	    	   $scope.hr2="12";
+				  $scope.minute2 = b[1];
+				  $scope.ap2="AM"; 
+	       }else if(b[0]==="12"){
+			  	  $scope.hr2=b[0];
+			  	  $scope.minute2 = b[1];
+			  	  $scope.ap2="PM"; 
+		       }
+	       else{
+			  $scope.hr2=b[0];
+			  $scope.minute2 = b[1];
+			  $scope.ap2="AM";  
+	       }
+	 	   console.log(result);
+	 	   $scope.childWelfareCommitteeName;
+	 	   $scope.childProducedPlaceName;
+	  }, function(error){
+		  console.log(error);
+	  });
+  }
+ 
+})
+.directive('ngFiles', ['$parse', function ($parse){
+    function fn_link(scope, element, attrs) {
+        var onChange = $parse(attrs.ngFiles);
+        element.on('change', function (event) {
+            onChange(scope, { $files: event.target.files });
+        });
+    };
+    return {
+        link: fn_link
+    };
+}]);
+
+/*  for  */
+myAppConstructor.
+directive('onlyTenDigits', function () {
+
+  return {
+      restrict: 'A',
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl) {
+				return; 
+			}
+			
+			ngModelCtrl.$parsers.push(function(val) {
+				if (angular.isUndefined(val)) {
+					val = '';
+				}
+				
+				var clean = val.replace(/[^0-9]/g, '');
+				if(!angular.isUndefined(clean)) {
+	            	 var num=0;
+	            	 if(clean.length>10 ){
+	            		 num =clean.slice(0,10);
+	            		 clean= num;
+	            	 }
+	            		 
+	             }
+				
+				if (val !== clean) {
+					ngModelCtrl.$setViewValue(clean);
+					ngModelCtrl.$render();
+				}
+				return clean;
+			});
+			
+			element.bind('keypress', function(event) {
+				if(event.keyCode === 32) {
+					event.preventDefault();
+				}
+			});
+		}
+  };
+});
+myAppConstructor.
+directive('onlyTwoDigits', function () {
+
+  return {
+      restrict: 'A',
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl) {
+				return; 
+			}
+			
+			ngModelCtrl.$parsers.push(function(val) {
+				if (angular.isUndefined(val)) {
+					 val = '';
+				}
+				
+				var clean = val.replace(/[^0-9]/g, '');
+				if(!angular.isUndefined(clean)) {
+	            	 var num=0;
+	            	 if(clean.length>2 ){
+	            		 num =clean.slice(0,2);
+	            		 clean= num;
+	            	 }
+	            		 
+	             }
+				
+				if (val !== clean) {
+					ngModelCtrl.$setViewValue(clean);
+					ngModelCtrl.$render();
+				}
+				return clean;
+			});
+			
+			element.bind('keypress', function(event) {
+				if(event.keyCode === 32) {
+					event.preventDefault();
+				}
+			});
+		}
+  };
+});
+myAppConstructor.
+directive('thirtyCharactersValidation', function () {
+
+  return {
+      restrict: 'A',
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl) {
+				return; 
+			}
+			
+			ngModelCtrl.$parsers.push(function(val) {
+				if (angular.isUndefined(val)) {
+					var val = '';
+				}
+				
+				var clean = val;
+				if(!angular.isUndefined(clean)) {
+	            	 var num=0;
+	            	 if(clean.length>30 ){
+	            		 num =clean.slice(0,30);
+	            		 clean= num;
+	            	 }
+	            	 clean = clean.replace(/[^a-zA-z ]/g, '');
+	            	clean = clean.replace('^', '');
+	            	clean = clean.replace(/\\/g, '');
+	            	clean = clean.replace('[', '');
+	            	clean = clean.replace(']', '');
+	            	
+	            	
+	             }
+				
+				if (val !== clean) {
+					ngModelCtrl.$setViewValue(clean);
+					ngModelCtrl.$render();
+				}
+				return clean;
+			});
+		}
+  };
+});
+myAppConstructor.
+directive('hundredCharactersValidation', function () {
+
+  return {
+      restrict: 'A',
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl) {
+				return; 
+			}
+			
+			ngModelCtrl.$parsers.push(function(val) {
+				if (angular.isUndefined(val)) {
+					var val = '';
+				}
+				
+				var clean = val;
+				if(!angular.isUndefined(clean)) {
+	            	 var num=0;
+	            	 if(clean.length>100 ){
+	            		 num =clean.slice(0,100);
+	            		 clean= num;
+	            	 }
+	            	 clean = clean.replace(/[^a-zA-z ,.]/g, '');
+	            	clean = clean.replace('^', '');
+	            	clean = clean.replace(/\\/g, '');
+	            	clean = clean.replace('[', '');
+	            	clean = clean.replace(']', '');
+	            	
+	            	
+	             }
+				
+				if (val !== clean) {
+					ngModelCtrl.$setViewValue(clean);
+					ngModelCtrl.$render();
+				}
+				return clean;
+			});
+		}
+  };
+});
+myAppConstructor.
+directive('sixtyCharactersValidation', function () {
+
+  return {
+      restrict: 'A',
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl) {
+				return; 
+			}
+			
+			ngModelCtrl.$parsers.push(function(val) {
+				if (angular.isUndefined(val)) {
+					var val = '';
+				}
+				
+				var clean = val;
+				if(!angular.isUndefined(clean)) {
+	            	 var num=0;
+	            	 if(clean.length>60 ){
+	            		 num =clean.slice(0,60);
+	            		 clean= num;
+	            	 }
+	            	 clean = clean.replace(/[^a-zA-z ,.]/g, '');
+	            	clean = clean.replace('^', '');
+	            	clean = clean.replace(/\\/g, '');
+	            	clean = clean.replace('[', '');
+	            	clean = clean.replace(']', '');
+	            	
+	            	
+	             }
+				
+				if (val !== clean) {
+					ngModelCtrl.$setViewValue(clean);
+					ngModelCtrl.$render();
+				}
+				return clean;
+			});
+		}
+  };
+});
+myAppConstructor.
+directive('onlyTwelveDigits', function () {
+
+  return {
+      restrict: 'A',
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl) {
+				return; 
+			}
+			
+			ngModelCtrl.$parsers.push(function(val) {
+				if (angular.isUndefined(val)) {
+					var val = '';
+				}
+				
+				var clean = val.replace(/[^0-9]/g, '');
+				if(!angular.isUndefined(clean)) {
+	            	 var num=0;
+	            	 if(clean.length>10 ){
+	            		 num =clean.slice(0,12);
+	            		 clean= num;
+	            	 }
+	            		 
+	             }
+				
+				if (val !== clean) {
+					ngModelCtrl.$setViewValue(clean);
+					ngModelCtrl.$render();
+				}
+				return clean;
+			});
+			
+			element.bind('keypress', function(event) {
+				if(event.keyCode === 32) {
+					event.preventDefault();
+				}
+			});
+		}
+  };
+});
+myAppConstructor.
+directive('twohundredCharactersValidation', function () {
+
+  return {
+      restrict: 'A',
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl) {
+				return; 
+			}
+			
+			ngModelCtrl.$parsers.push(function(val) {
+				if (angular.isUndefined(val)) {
+					var val = '';
+				}
+				
+				var clean = val;
+				if(!angular.isUndefined(clean)) {
+	            	 var num=0;
+	            	 if(clean.length>200 ){
+	            		 num =clean.slice(0,200);
+	            		 clean= num;
+	            	 }
+	            	 clean = clean.replace(/[^a-zA-z ,.]/g, '');
+	            	clean = clean.replace('^', '');
+	            	clean = clean.replace(/\\/g, '');
+	            	clean = clean.replace('[', '');
+	            	clean = clean.replace(']', '');
+	            	
+	            	
+	             }
+				
+				if (val !== clean) {
+					ngModelCtrl.$setViewValue(clean);
+					ngModelCtrl.$render();
+				}
+				return clean;
+			});
+		}
+  };
+});

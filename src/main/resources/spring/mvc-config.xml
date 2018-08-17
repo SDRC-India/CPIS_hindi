@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Uncomment and your base-package here:
+         <context:component-scan
+            base-package="org.springframework.samples.web"/>  -->
+
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	        <!-- Example: a logical view name of 'showMessage' is mapped to '/WEB-INF/jsp/showMessage.jsp' -->
+	        <property name="prefix" value="/WEB-INF/view/jsp/"/>
+	        <property name="suffix" value=".jsp"/>
+	</bean>
+	
+		<!-- Simple strategy: only path extension is taken into account -->
+	<bean id="cnManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true" />
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="text/html" />
+
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="xml" value="application/xml" />
+				<entry key="atom" value="application/atom+xml" />
+			</map>
+		</property>
+	</bean>
+	
+
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/webjars/**"
+        location="classpath:/META-INF/resources/webjars/" />	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+	<mvc:view-controller path="/cciInfoMap" view-name="cciInfoMap" />
+<!-- 	<mvc:view-controller path="/" view-name="index" /> -->
+	<mvc:view-controller path="/home" view-name="home" />
+	<mvc:view-controller path="/about" view-name="about" />
+	<mvc:view-controller path="/dashboard" view-name="dashboard" />
+	<mvc:view-controller path="/structure" view-name="structure" />
+	<mvc:view-controller path="/rti" view-name="rti" />
+	<mvc:view-controller path="/help" view-name="help" />
+	<mvc:view-controller path="/faq" view-name="faq" />
+	<mvc:view-controller path="/contact" view-name="contact" />
+	<mvc:view-controller path="/programme" view-name="programme" />
+	<mvc:view-controller path="/disclaimer" view-name="disclaimer" />
+	<mvc:view-controller path="/terms" view-name="terms" />
+	<mvc:view-controller path="/privacyPolicy" view-name="privacyPolicy" />
+	<mvc:view-controller path="/sitemap" view-name="sitemap" />
+	<mvc:view-controller path="/gallery" view-name="gallery" />
+	<mvc:view-controller path="/login" view-name="login" />
+	<mvc:view-controller path="/ccts" view-name="ccts" />
+	<mvc:view-controller path="/ccts_login" view-name="ccts_login" />
+	<mvc:view-controller path="/child_registration" view-name="child_registration" />
+	<mvc:view-controller path="/child_registration_view" view-name="child_registration_view" />
+	<mvc:view-controller path="/interim_order" view-name="interim_order" />
+	<mvc:view-controller path="/foster_care" view-name="foster_care" />
+	<mvc:view-controller path="/case_monitoring" view-name="case_monitoring" />
+	<mvc:view-controller path="/fit_person" view-name="fit_person" />
+	<mvc:view-controller path="/fit_institution" view-name="fit_institution" />
+	<mvc:view-controller path="/caseHistory" view-name="caseHistory" />
+	<mvc:view-controller path="/socialInvestigation" view-name="socialInvestigation" />
+	<mvc:view-controller path="/socialInvestigation_view" view-name="socialInvestigation_view" />
+	<mvc:view-controller path="/case_summary" view-name="case_summary" />
+	<mvc:view-controller path="/individual_care_plan" view-name="individual_care_plan" />
+	<mvc:view-controller path="/icpPersonalDetails" view-name="icpPersonalDetails" />
+	<mvc:view-controller path="/icpprogressReport" view-name="icpprogressReport" />
+	<mvc:view-controller path="/icpprereleasereport" view-name="icpprereleasereport" />
+	<mvc:view-controller path="/icppostRelease" view-name="icppostRelease" />
+	<mvc:view-controller path="/individualCarePlan" view-name="individualCarePlan" />
+	<mvc:view-controller path="/child_record_fostercare" view-name="child_record_fostercare" />
+	<mvc:view-controller path="/restoration_order" view-name="restoration_order" />
+	<mvc:view-controller path="/escort_order" view-name="escort_order" />
+	<mvc:view-controller path="/fit_person_view" view-name="fit_person_view" />
+	<mvc:view-controller path="/fit_institution_view" view-name="fit_institution_view" />
+	<mvc:view-controller path="/foster_care_view" view-name="foster_care_view" />
+	<mvc:view-controller path="/case_monitoring_view" view-name="case_monitoring_view" />
+	<mvc:view-controller path="/finalOrder" view-name="finalOrder" />
+	<mvc:view-controller path="/rehabilitation" view-name="rehabilitation" />
+	<mvc:view-controller path="/cctsFooter" view-name="cctsFooter" />
+	<mvc:view-controller path="/sponshorshipPlacement" view-name="sponshorshipPlacement" />
+	<mvc:view-controller path="/afterCarePlacement" view-name="afterCarePlacement" />
+	<mvc:view-controller path="/ciclSocialBackgroundReport" view-name="ciclSocialBackgroundReport" />
+	<mvc:view-controller path="/ciclinterimOrder" view-name="ciclinterimOrder" />
+	<mvc:view-controller path="/childCareInstitution" view-name="childCareInstitution" />
+	<mvc:view-controller path="/ciclCaseMonitoring" view-name="ciclCaseMonitoring" />
+	<mvc:view-controller path="/supervisionOrder" view-name="supervisionOrder" />
+	<mvc:view-controller path="/ciclPeriodicReport" view-name="ciclPeriodicReport" />
+	<mvc:view-controller path="/ciclSocialBackgroundView" view-name="ciclSocialBackgroundView" />
+	<mvc:view-controller path="/ciclSocialInvestigationReport" view-name="ciclSocialInvestigationReport" />
+	<mvc:view-controller path="/factSheet" view-name="factSheet" />
+	<mvc:view-controller path="/dashboard" view-name="dashboard" />
+	<mvc:view-controller path="/audiogallery" view-name="audiogallery" />
+	<mvc:view-controller path="/videogallery" view-name="videogallery" />
+	<mvc:view-controller path="/childfostercare" view-name="childfostercare" />
+	<mvc:view-controller path="/resource" view-name="resource" />
+	<mvc:view-controller path="/reportSummary" view-name="reportSummary" />
+	<mvc:view-controller path="/human_resource" view-name="human_resource" />
+	<mvc:view-controller path="/infrastructure" view-name="infrastructure" />
+	<mvc:view-controller path="/financialreport" view-name="financialreport" />
+	<mvc:view-controller path="/inspectionreport" view-name="inspectionreport" />
+	<mvc:view-controller path="/report" view-name="report" />
+	<mvc:view-controller path="/role_management" view-name="role_management" />
+	<mvc:view-controller path="/constitutionofSociety" view-name="constitutionofSociety" />
+	<mvc:view-controller path="/legallyFreeAdoption" view-name="legallyFreeAdoption" />
+	<mvc:view-controller path="/forgot_password" view-name="forgot_password" />
+	<mvc:view-controller path="/changePassword" view-name="changePassword" />
+	<mvc:view-controller path="/constitutionofSocietyView" view-name="constitutionofSocietyView" />
+	<mvc:view-controller path="/roleManagementView" view-name="roleManagementView" />
+	<mvc:view-controller path="/exception" view-name="exception" />
+	<mvc:view-controller path="/adminLogin" view-name="adminLogin" />
+	<mvc:view-controller path="/userList" view-name="userList" />
+	<mvc:view-controller path="/adminChangePassword" view-name="adminChangePassword" />
+	<mvc:view-controller path="/notification" view-name="notification" />
+	<mvc:view-controller path="/followUpForm" view-name="followUpForm" />
+	<mvc:view-controller path="/changeUserPassword" view-name="changeUserPassword" />
+	
+		<!-- - This bean resolves specific types of exceptions to corresponding 
+		logical - view names for error views. -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<!-- view name resolved using bean of type InternalResourceViewResolver 
+			(declared in mvc-view-config.xml) -->
+		<property name="defaultErrorView" value="exception" />
+		<!-- results into 'WEB-INF/jsp/exception.jsp' -->
+		<property name="warnLogCategory" value="warn" />
+		<!-- needed otherwise exceptions won't be logged anywhere -->
+	</bean>
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Configure bean to convert JSON to POJO and vice versa -->
+	<bean id="jsonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	</bean>
+</beans>

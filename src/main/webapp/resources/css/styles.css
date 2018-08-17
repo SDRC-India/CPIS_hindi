@@ -1,0 +1,1838 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Josefin Sans'), local('JosefinSans'), url(https://fonts.gstatic.com/s/josefinsans/v9/xgzbb53t8j-Mo-vYa23n5j0LW-43aMEzIO6XUTLjad8.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Josefin Sans'), local('JosefinSans'), url(https://fonts.gstatic.com/s/josefinsans/v9/xgzbb53t8j-Mo-vYa23n5ugdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+.glyphicon-refresh-animate {
+   -webkit-animation-name: rotateThis;
+   -webkit-animation-duration: 1s;
+   -webkit-animation-iteration-count: infinite;
+   -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes "rotateThis" {
+ from { 
+        -webkit-transform: rotate( 0deg );  
+    }
+ to  { 
+        -webkit-transform: rotate( 360deg ); 
+    }
+}
+
+.conent-align
+    {
+     padding-left: 360px;
+    }
+    button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 80%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    padding: 8px 18px 8px 18px;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+button.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2212";
+}
+
+.record-box {
+    display: inline-block !important;
+    width: 300px !important;
+}
+.record-upload {
+    display: inline-block  !important;
+    float: right !important;
+}
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border:none !important;
+}
+.accordionBody
+{
+	margin-top: 14px;
+    margin-right: 72px;
+}
+.fostercare
+{
+	margin-left: -90px !important;
+	 margin-top: 10px !important;
+	
+}
+.addingnewdetails
+{
+	margin:10px;
+	font-weight:bold;
+	font-size:18px;
+/* 	display:block; */
+}
+.addingnewdetails-container
+{
+	margin-left:10%;
+}
+.familyDetails
+{
+/* 	padding-left:114px; */
+/* 	margin-top:10px; */
+/* 	margin-bottom: 35px; */
+}
+.spousedetails
+{
+	padding-left:202px;
+}
+.addDetailPanel{
+    width: 100% !important;
+    text-align: left;
+    border: 1px solid #CCC;
+    padding: 5px 20px;
+    position: relative;
+    background-color: #396e5e;
+    color: #fff;
+}
+button.addDetailPanel i.fa{
+	float: right;
+	margin-top: 4px;
+}
+ button.addDetailPanel i.fa.fa-plus{
+ 	display: none;
+ }
+ button.addDetailPanel i.fa.fa-minus{
+ 	display: inline-block;
+ }
+button.addDetailPanel.collapsed i.fa.fa-plus {
+    display: inline-block;
+}
+button.addDetailPanel.collapsed i.fa.fa-minus{
+	display: none;
+}
+.table-margintop
+{
+	margin-top:12px;
+}
+.rbtn-align
+{
+	display:inline-flex;
+}
+.habitshead
+{
+	text-align:center;
+	border: 1px solid #ccc;
+	height: 270px;
+}
+.boxbrdr
+{
+	margin: 0 !important;
+    padding: 0 !important;
+}
+.content-align li {
+    text-align: left;
+}
+.ifotherspecify
+{
+	display:none;
+	margin-top: -27px;
+    margin-left: 76px;
+}
+.badhabits
+{
+	height:210px;
+}
+.extraativity
+{
+	margin-top:10px;
+}
+.chkbox
+{
+	
+}
+.textAlign
+{
+	text-align:center !important;
+}
+/* .children, .ifotherspecifyb, .othertextBox, .mentionperson, */
+/*  .reasonLeaving, .typesAbuse, .physicalAbuse, .otherSexualAbuse, */
+/*  .others, .othersExploition, .denialOthers, .othersOther, .causingOthers, */
+/*  .beatenOthers, .detentionOthers */
+
+/* { */
+/* 	display:none; */
+/* } */
+.hideshowonclick
+{
+/* 	display:none; */
+}
+
+.marginTop
+{
+	margin-top:20px;
+}
+.margintopspace
+{
+	margin-top:-25px !important;
+}
+.marginleft
+{
+	margin-left:-6px !important;
+}
+.margin-topspace
+{
+	    margin-top: 40px !important;
+}
+.marginleftspace
+{
+	margin-right: 18px !important;
+}
+.margnbtm {
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.margintop
+{
+	margin-top:20px;
+}
+input#empldetails {
+    width: 133px;
+    float: right;
+}
+
+.spcifyother
+{
+	margin-top: 10px;
+    width: 200px;
+}
+.marginSpaceTop
+{
+	margin-top: 15px;
+}
+.content-align
+{
+	display: table-caption;
+    width: 270px;
+}
+.content1-align
+{
+	display: table-caption;
+    width: 245px;
+}
+
+.ul.content1-align li label
+{
+ display:block !important;	
+}
+.habitswidth, .reasonswidth, .majoritywidth, .reasonleavewidth, .exploitionwidth
+{
+	width:100%;
+	float:left;
+	display:block;
+	padding-left:25px;
+	text-align:left;
+}
+.escortgender, .governmental
+{
+	margin-bottom: -24px;
+    margin-top: 10px;
+    margin-left: -5px;
+}
+.marginbottomSpce
+{
+	    margin-top: 70px;
+}
+.margn_spce
+{
+	margin-top:20px;
+}
+.margns
+{
+	margin-top:10px;
+}
+.panel-heading
+{
+	cursor:pointer;
+}
+.resize
+{
+	text-align: center;
+	padding-right:24px !important;
+}
+.resizeicon
+{
+	font-family: inherit;
+	text-align: right;
+    padding-right: 47px !important;
+    
+}
+#exploitationviolence
+{
+	width:100px;
+}
+#anyOtherCategory
+{
+	width: 148px;
+    margin-left: 270px;
+    margin-top: -26px;
+}
+#anyOtherCategory1
+{
+	width: 148px;
+    margin-left: 270px;
+    margin-top: -26px;
+}
+.mrgnspce
+{
+	    margin-bottom: 10px;
+}
+.cpisloginsvgheight
+{
+	height: 114px;
+    margin-left: 105px;
+    margin-bottom: 24px;
+}
+.cctsHeaderdesign
+{
+	height:25px;
+	float:left;
+}
+.margntopSpace
+{
+	border-bottom: 1px solid rgba(0,0,0,.5);
+	background-color:#fff;
+    z-index: 999999;
+}
+.headerFixed
+{
+	background-color:#fff;
+    z-index: 999999;
+    width: 100%;
+}
+.welcome-user li {
+    display: inline-block;
+    margin-right: 36px;
+    font-weight: bold;
+    font-size: 15px;
+}
+#nav-list-menu li{
+	margin-right: 0;
+}
+.username
+{
+	font-family:'Josefin Sans', sans-serif;
+	color: #396c5d;
+	font-weight:bold;
+}
+a
+{
+text-decoration:none !important;	
+}
+.welcome-user li:before, .logout:before {    
+    font-family: 'FontAwesome';
+    content: '\f10c';
+    margin:0 5px 0 -15px;
+    color:#333;
+    font-size:5px;
+}
+.welcome-user li.active{
+	position: relative;
+}
+.welcome-user li.active a:before{    
+    background-image: url(../image/sectionIndicator.jpg);
+    background-size: 10px 20px;
+    display: inline-block;
+    width: 10px; 
+    height: 20px;
+    content:"";
+    position: absolute;
+    top: 12px;
+    left: -13px;
+}
+.dashboard.active a:before{
+    top: 3px !important;
+    left: -19px !important;
+}
+.report.active a:before{
+    top: 3px !important;
+    left: -18px !important;
+}
+.welcome{
+	display: inline-block;
+    margin-right: 30px;
+}
+.logout{
+	display: inline-block;
+}
+#nav-list-menu li:before{
+	content: none;
+}
+.welcome-user li.home.active a:before {
+	top: 3px;
+	left: -17px;
+}
+.welcome-user li.help.active a:before,.welcome-user li.welcome.active a:before {
+	    top: 3px;
+    left: -18px;
+}
+.loginfont
+{
+	font-family:'Josefin Sans', sans-serif;
+	font-size:23px;
+	font-weight:bold;	
+}
+.usernameFont
+{
+	font-family:'Josefin Sans', sans-serif;
+	font-size:16px;
+}
+.usernameFormInput
+{
+	border-radius:0 !important;
+	outline: none;
+	border:none !important;
+	background: rgba(110, 110, 110, 0.56) !important;
+	box-shadow:none !important;
+	
+}
+.submitLogin
+{
+	background:#394142 !important;
+	margin-left: 98px;
+    width: 110px !important;
+}
+
+.childlist-heading1 {
+        text-align:left !important;   
+        font-family: 'Josefin Sans', sans-serif !important;  
+        text-transform:none !important;
+        background:#fff !important;
+        font-size: 16px;
+        font-weight: 500;
+        
+    }  
+  .borderBottom
+    {
+     border-bottom: 1px solid #ccc;
+     
+    }  
+  .borderSearch
+  {
+  border-radius:0 !important;
+  } 
+  .btn-danger {
+     color: #333;
+     background-color: rgba(110, 110, 110, 0.56) !important;
+     border:none !important;
+     border-top-right-radius: 0;
+     border-bottom-right-radius: 0;
+}
+.btnsize
+{
+	font-size: 13px !important;
+}
+.serchOptionClr
+{
+      background: rgba(110, 110, 110, 0.56) !important;
+}
+.headingBar
+{
+	margin: -6px !important;
+}
+.glyphicon
+{
+	font-family: 'Glyphicons Halflings' !important;
+}
+.fa {
+    
+    font: normal normal normal 14px/1 FontAwesome !important;
+}
+.familyDetailss
+{
+	margin-top:10px;
+}
+.headingCLR
+{
+	background: #394142;
+    color: #fff;
+}
+.borderRight
+{
+	    border:none !important;
+}
+
+.rowHeight
+{
+	   height: 35px;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+        background-color: #d6d6d6 !important;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: #e2e2e2 !important;
+}
+table#example tr td {
+    vertical-align: middle;
+}
+.box-right
+{
+ border-right: none;
+}
+.spaceFromTop
+{
+	margin-top:20px;
+}
+
+.social_headng
+{
+	background:#386d5c;
+	width: auto;
+    height: 35px;
+    float: left;
+	padding: 5px 5px 0px 10px;
+}
+
+.social_headng img
+{
+	width: 7%;
+    height: auto;
+    padding-right:5px;
+    margin-bottom:6px;
+}
+
+.social_headng span
+{
+	color:#fff;
+	font-size:14px;
+	line-height:25px;
+}
+.social_headng1
+{
+	background:#386d5c;
+	width: auto;
+    height: 35px;
+    float: right;
+	padding: 5px 5px 0px 10px;
+	
+}
+.summaryspace
+{
+	margin-top:-15px;
+}
+
+.social_headng1 span
+{
+	color:#fff;
+	font-size:14px;
+	line-height:25px;
+}
+
+.social_headng1 img
+{
+	width: 7%;
+    height: auto;
+    padding-right:5px;
+}
+
+.paddingleft
+{
+	padding-left: 329px;
+}
+.panel-title
+{
+	line-height: 15px !important;
+	background:#394142;
+	margin-bottom:10px;
+	color:#fff !important;
+	text-transform:none !important;
+}
+.childlist-heading11
+{
+	font-family: 'Josefin Sans', sans-serif !important;  
+	height:31px;
+	margin-bottom:10px;
+	border-bottom: 1px solid #ccc;
+	padding: 4px;
+	font-weight: bold;
+    font-size: 14px;
+}
+.more-less
+{
+	color:#fff !important;
+}
+.filterAge
+{
+	background:#c9cacb;
+	margin-bottom: 10px;
+	margin-top: -6px;
+}
+.filtrIcon
+{
+    margin-top: 3px;
+}
+.borderPersonal {
+    border-bottom: 2px solid #ccc !important;
+    padding:10px 0;
+}
+
+.cctsHeaderdesigns
+{
+    height: 40px;
+    float: left;
+	padding: 5px;
+}
+.interimPlanmargintop
+{
+	margin-top:90px;
+}
+.basicchildform button
+{
+    border-radius:0px !important;
+}
+.basicchildform button#button2id
+{
+	background:#396e5e;
+	border-color:#396e5e;
+}
+#myModalLabel
+{
+	line-height: 1.42857143;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+.bigbutton
+{
+	color: #fff;
+    background-color: #396e5e !important;
+    border-color: #396e5e !important;
+    border-radius: 0px !important;
+    height: 60px;
+    width: 115px;
+    margin-right: 3px;
+}
+
+.bigbutton2
+{
+	color: #fff;
+    background-color: #386d5c !important;
+    border-color: #386d5c !important;
+    border-radius: 0px !important;
+    height: 60px;
+    width: 115px;
+}
+.modal-content
+{
+	height: 242px !important;
+    border-radius: 0px !important;
+    width: 75%;
+    margin-left: 50px;
+
+}
+.modal-header
+{
+	border-bottom:none !important;
+	margin-top: 25px;
+	margin-bottom: 13px;
+}
+.modal-body p
+{
+	    padding-right: 13px;
+}
+.modal-header .close {
+   
+    display: none;
+}
+button#hfone {
+    background: #396e5e;
+    color: #fff;
+    padding: 7px;
+    margin-left: 15px;
+}
+button#hftwo {
+    background: #396e5e;
+    color: #fff;
+    padding: 7px;
+    margin-left: 15px;
+}
+button#hfthree{
+    background: #396e5e;
+    color: #fff;
+    padding: 7px;
+    margin-left: 8px;
+}
+.modalHeight
+{
+	height: 307px !important;
+}
+.modalHeight .modal-header
+{
+	    margin-top: 24px;
+    margin-bottom: 4px;
+}
+.inputBOXSpace
+{
+	margin-top: -25px;
+}
+.selectChildalign
+{
+	text-align:center;
+	margin-top: 50px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.printOK
+{
+	background-color: #386d5c !important;
+    border-radius: 0px !important;
+    color: #fff;
+    width: 29%;
+    margin-top: 21px;
+    margin-left: 143px;
+    height: 44px;
+}
+.printOK:hover
+{
+	background-color: #386d5c !important;
+    border-radius: 0px !important;
+    color: #fff;
+    width: 29%;
+    margin-top: 21px;
+    margin-left: 143px;
+    height: 44px;
+}
+.menuLogo
+{
+	cursor:pointer;
+}
+#passPointer
+{
+	cursor:text;
+}
+#footer
+{
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
+}
+.printModal
+{
+	margin-top: 51px !important;
+}
+.recordsaveHeading
+{
+	font-size: 16px;
+    font-weight: bold;
+}
+#button5id
+{
+	margin-top: 30px;
+	color: #fff;
+    background-color: #386d5c;
+    border-color: #386d5c;
+    border-radius: 0px;
+    width: 20%;
+}
+#button5id:hover
+{
+	margin-top: 30px;
+	color: #fff;
+    background-color: #386d5c;
+    border-color: #386d5c;
+    border-radius: 0px;
+    width: 20%;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+ -webkit-appearance: none; 
+ margin: 0; 
+}
+.othersVerbal
+{
+	width:70% !important;
+    margin-left: 18px;
+    margin-top: 6px;
+	
+}
+#casehistoryotherhealthissues
+{
+	margin-top:10px;
+}
+#submitData
+{
+	color: #fff;
+    background-color: #396e5e !important;
+    border-color: #396e5e !important;
+    border-radius: 0px !important;
+    height: 60px;
+    width: 115px;
+}
+.panelPoinetr
+{
+	cursor:default !important;
+}
+.resizeofUser
+{
+	    margin-top: 21px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 15px;
+}
+#js-upload-submit
+{
+	margin-left: -120px;
+    border: #396c5d;
+    padding: 3px;
+}
+
+.conent-align
+    {
+     padding-left: 360px;
+    }
+    button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 80%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    padding: 8px 18px 8px 18px;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+button.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2212";
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border:none !important;
+}
+.accordionBody
+{
+	margin-top: 14px;
+    margin-right: 72px;
+}
+.addingnewdetails
+{
+	margin:10px;
+	font-weight:bold;
+	font-size:18px;
+/* 	display:block; */
+}
+.addingnewdetails-container
+{
+	margin-left:10%;
+}
+.familyDetails
+{
+/* 	padding-left:114px; */
+/* 	margin-top:10px; */
+/* 	margin-bottom: 35px; */
+}
+.spousedetails
+{
+	padding-left:202px;
+}
+.addDetailPanel{
+	    width: 100% !important;
+    text-align: left;
+    border: 1px solid #CCC;
+    padding: 5px 20px;
+    position: relative;
+}
+button.addDetailPanel i.fa{
+	float: right;
+	margin-top: 4px;
+}
+ button.addDetailPanel i.fa.fa-plus{
+ 	display: none;
+ }
+ button.addDetailPanel i.fa.fa-minus{
+ 	display: inline-block;
+ }
+button.addDetailPanel.collapsed i.fa.fa-plus {
+    display: inline-block;
+}
+button.addDetailPanel.collapsed i.fa.fa-minus{
+	display: none;
+}
+.table-margintop
+{
+	margin-top:12px;
+}
+.rbtn-align
+{
+	display:inline-flex;
+}
+.habitshead
+{
+	text-align:center;
+	border: 1px solid #ccc;
+	height: 300px;
+}
+.boxbrdr
+{
+	margin: 0 !important;
+    padding: 0 !important;
+}
+.content-align li {
+    text-align: left;
+}
+.ifotherspecify
+{
+	display:none;
+	margin-top: -27px;
+    margin-left: 76px;
+}
+.badhabits
+{
+	height:210px;
+}
+.extraativity
+{
+	margin-top:10px;
+}
+.chkbox
+{
+	
+}
+.textAlign
+{
+	text-align:center !important;
+}
+/* .children, .ifotherspecifyb, .othertextBox, .mentionperson, */
+/*  .reasonLeaving, .typesAbuse, .physicalAbuse, .otherSexualAbuse, */
+/*  .others, .othersExploition, .denialOthers, .othersOther, .causingOthers, */
+/*  .beatenOthers, .detentionOthers */
+
+/* { */
+/* 	display:none; */
+/* } */
+.hideshowonclick
+{
+/* 	display:none; */
+}
+
+.marginTop
+{
+	margin-top:20px;
+}
+.margintopspace
+{
+	margin-top:-25px !important;
+}
+.marginleft
+{
+	margin-left:-6px !important;
+}
+.margin-topspace
+{
+	    margin-top: 40px !important;
+}
+.marginleftspace
+{
+	margin-right: 18px !important;
+}
+.margnbtm {
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.margintop
+{
+	margin-top:20px;
+}
+input#empldetails {
+    width: 133px;
+    float: right;
+}
+
+.spcifyother
+{
+	margin-top: 10px;
+    width: 200px;
+}
+.marginSpaceTop
+{
+	margin-top: 15px;
+}
+.content-align
+{
+	display: table-caption;
+    width: 270px;
+}
+.content1-align
+{
+	display: table-caption;
+    width: 245px;
+}
+
+.ul.content1-align li label
+{
+ display:block !important;	
+}
+.habitswidth, .reasonswidth, .majoritywidth, .reasonleavewidth, .exploitionwidth
+{
+	width:100%;
+	float:left;
+	display:block;
+	padding-left:25px;
+	text-align:left;
+}
+.escortgender, .governmental
+{
+	margin-bottom: -24px;
+    margin-top: 10px;
+    margin-left: -5px;
+}
+.marginbottomSpce
+{
+	    margin-top: 70px;
+}
+.margn_spce
+{
+	margin-top:20px;
+}
+.margns
+{
+	margin-top:10px;
+}
+.panel-heading
+{
+	cursor:pointer;
+}
+.resize
+{
+	text-align: center;
+	padding-right:24px !important;
+}
+.resizeicon
+{
+	font-family: inherit;
+	text-align: right;
+    padding-right: 47px !important;
+    
+}
+#exploitationviolence
+{
+	width:100px;
+}
+#anyOtherCategory
+{
+	width: 148px;
+    margin-left: 270px;
+    margin-top: -26px;
+}
+#anyOtherCategory1
+{
+	width: 148px;
+    margin-left: 270px;
+    margin-top: -26px;
+}
+.mrgnspce
+{
+	    margin-bottom: 10px;
+}
+.withMenu
+{
+/* 	margin-left: 60px; */
+}
+.cpisloginsvgheight
+{
+	height: 114px;
+    margin-left: 250px !important;
+    margin-bottom: 24px;
+}
+.cpisloginsvgheight-cctslogin
+{
+	    margin-left: 110px !important;
+}
+.cctsHeaderdesign
+{
+	height:25px;
+	float:left;
+}
+.margntopSpace
+{
+	border-bottom: 1px solid rgba(0,0,0,.5);
+	background-color:#fff;
+    z-index: 999999;
+}
+.headerFixed
+{
+	background-color:#fff;
+    z-index: 999999;
+    width: 100%;
+}
+.welcome-user li {
+    display: inline-block;
+    margin-right: 27px;
+    font-weight: bold;
+    font-size: 15px;
+}
+#nav-list-menu li{
+	margin-right: 0;
+}
+.username
+{
+	font-family:'Josefin Sans', sans-serif;
+	color: #396c5d;
+	font-weight:bold;
+}
+a
+{
+text-decoration:none !important;	
+}
+.welcome-user li:before, .logout:before {    
+    font-family: 'FontAwesome';
+    content: '\f10c';
+    margin:0 5px 0 -15px;
+    color:#333;
+    font-size:5px;
+}
+.welcome-user li.active{
+	position: relative;
+}
+.welcome-user li.active a:before{    
+     background-image: url(../img/cpis_ccts_menu_trackern_SVG.svg);
+    background-size: 10px 20px;
+    display: inline-block;
+    width: 10px; 
+    height: 20px;
+    content:"";
+    position: absolute;
+    top: 12px;
+    left: -13px;
+}
+.dashboard.active a:before{
+    top: 3px !important;
+    left: -19px !important;
+}
+.report.active a:before{
+    top: 3px !important;
+    left: -18px !important;
+}
+.welcome{
+	display: inline-block;
+    margin-right: 30px;
+}
+.logout{
+	display: inline-block;
+}
+#nav-list-menu li:before{
+	content: none;
+}
+.welcome-user li.home.active a:before {
+	top: 3px;
+	left: -17px;
+}
+.welcome-user li.help.active a:before,.welcome-user li.welcome.active a:before {
+	    top: 3px;
+    left: -18px;
+}
+.loginfont
+{
+	font-family:'Josefin Sans', sans-serif;
+	font-size:23px;
+	font-weight:bold;	
+}
+.usernameFont
+{
+	font-family:'Josefin Sans', sans-serif;
+	font-size:16px;
+}
+.usernameFormInput
+{
+	border-radius:0 !important;
+	outline: none;
+	border:none !important;
+	background: rgba(110, 110, 110, 0.56) !important;
+	box-shadow:none !important;
+	
+}
+.submitLogin
+{
+	background:#394142 !important;
+	margin-left: 98px;
+    width: 110px !important;
+}
+
+.childlist-heading1 {
+        text-align:left !important;   
+        font-family: 'Josefin Sans', sans-serif !important;  
+        text-transform:none !important;
+        background:#fff !important;
+        font-size: 16px;
+        font-weight: 500;
+        
+    }  
+  .borderBottom
+    {
+     border-bottom: 1px solid #ccc;
+     
+    }  
+  .borderSearch
+  {
+  border-radius:0 !important;
+  } 
+  .btn-danger {
+     color: #333;
+     background-color: rgba(110, 110, 110, 0.56) !important;
+     border:none !important;
+     border-top-right-radius: 0;
+     border-bottom-right-radius: 0;
+}
+.btnsize
+{
+	font-size: 13px !important;
+}
+.serchOptionClr
+{
+      background: rgba(110, 110, 110, 0.56) !important;
+}
+.headingBar
+{
+	margin: -6px !important;
+}
+.glyphicon
+{
+	font-family: 'Glyphicons Halflings' !important;
+}
+.fa {
+    
+    font: normal normal normal 15px/1 FontAwesome !important;
+}
+.downloadicon{
+    
+    font: normal normal normal 28px/1 FontAwesome !important;
+}
+
+.familyDetailss
+{
+	margin-top:10px;
+}
+.headingCLR
+{
+	background: #394142;
+    color: #fff;
+}
+.borderRight
+{
+	    border:none !important;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+        background-color: #d6d6d6 !important;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: #e2e2e2 !important;
+}
+table#example tr td {
+    vertical-align: middle;
+}
+.box-right
+{
+ border-right: none;
+}
+.spaceFromTop
+{
+	margin-top:20px;
+}
+
+.social_headng
+{
+	background:#386d5c;
+	width: auto;
+    height: 35px;
+    float: left;
+	padding: 5px 5px 0px 10px;
+}
+
+.social_headng img
+{
+	width: 7%;
+    height: auto;
+    padding-right:5px;
+    margin-bottom:6px;
+}
+
+.social_headng span
+{
+	color:#fff;
+	font-size:14px;
+	line-height:25px;
+}
+.social_headng1
+{
+	background:#386d5c;
+	width: auto;
+    height: 35px;
+    float: right;
+	padding: 5px 5px 0px 10px;
+	
+}
+.summaryspace
+{
+	margin-top:-15px;
+}
+
+.social_headng1 span
+{
+	color:#fff;
+	font-size:14px;
+	line-height:25px;
+}
+
+.social_headng1 img
+{
+	width: 7%;
+    height: auto;
+    padding-right:5px;
+}
+
+.paddingleft
+{
+	padding-left: 329px;
+}
+.panel-title
+{
+	line-height: 15px !important;
+	background:#394142;
+	margin-bottom:10px !important;
+	color:#fff !important;
+	text-transform:none !important;
+}
+.childlist-heading11
+{
+	font-family: 'Josefin Sans', sans-serif !important;  
+	height:31px;
+	margin-bottom:10px;
+	border-bottom: 1px solid #ccc;
+	padding: 4px;
+	font-weight: bold;
+    font-size: 14px;
+}
+.more-less
+{
+	color:#fff !important;
+}
+.filterAge
+{
+	background:#c9cacb;
+	margin-bottom: 10px;
+	margin-top: -6px;
+}
+.filtrIcon
+{
+    margin-top: 3px;
+}
+.borderPersonal {
+    border-bottom: 2px solid #ccc !important;
+    padding:10px 0;
+}
+
+.cctsHeaderdesigns
+{
+    height: 40px;
+    float: left;
+	padding: 5px;
+}
+.interimPlanmargintop
+{
+	margin-top:90px;
+}
+
+/*.basicchildform button
+{
+    border-radius:0px !important;
+}
+.basicchildform button#button2id
+{
+	background:#396e5e;
+	border-color:#396e5e;
+}*/
+
+#myModalLabel
+{
+	line-height: 1.42857143;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+
+.modal-content
+{
+	height: 242px !important;
+    border-radius: 0px !important;
+    width: 75%;
+    margin-left: 50px;
+
+}
+.modal-header
+{
+	border-bottom:none !important;
+	margin-top: 25px;
+	margin-bottom: 13px;
+}
+.modal-body p
+{
+	    padding-right: 13px;
+}
+.modal-header .close {
+   
+    display: none;
+}
+button#hfone {
+    background: #396e5e;
+    color: #fff;
+    padding: 7px;
+    margin-left: 15px;
+}
+button#hftwo {
+    background: #396e5e;
+    color: #fff;
+    padding: 7px;
+    margin-left: 15px;
+}
+button#hfthree{
+    background: #396e5e;
+    color: #fff;
+    padding: 7px;
+    margin-left: 8px;
+}
+.modalHeight
+{
+	height: 307px !important;
+}
+.modalHeight .modal-header
+{
+	    margin-top: 24px;
+    margin-bottom: 4px;
+}
+.inputBOXSpace
+{
+	margin-top: -25px;
+}
+.selectChildalign
+{
+	text-align:center;
+	margin-top: 50px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.printOK
+{
+	background-color: #386d5c !important;
+    border-radius: 0px !important;
+    color: #fff;
+    width: 29%;
+    margin-top: 21px;
+    margin-left: 143px;
+    height: 44px;
+}
+.printOK:hover
+{
+	background-color: #386d5c !important;
+    border-radius: 0px !important;
+    color: #fff;
+    width: 29%;
+    margin-top: 21px;
+    margin-left: 143px;
+    height: 44px;
+}
+.menuLogo
+{
+	cursor:pointer;
+}
+#passPointer
+{
+	cursor:text;
+}
+#footer
+{
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
+}
+.printModal
+{
+	margin-top: 51px !important;
+}
+.widthstyle
+{
+	width:100%;
+}
+.recordsaveHeading
+{
+	font-size: 16px;
+    font-weight: bold;
+}
+#button5id
+{
+	margin-top: 30px;
+	color: #fff;
+    background-color: #386d5c;
+    border-color: #386d5c;
+    border-radius: 0px;
+    height: 60px;
+    width: 120px;
+}
+#button5id:hover
+{
+	margin-top: 30px;
+	color: #fff;
+    background-color: #386d5c;
+    border-color: #386d5c;
+    border-radius: 0px;
+    height: 60px;
+    width: 120px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+ -webkit-appearance: none; 
+ margin: 0; 
+}
+.othersVerbal
+{
+	width:70% !important;
+    margin-left: 18px;
+    margin-top: 6px;
+	
+}
+#casehistoryotherhealthissues
+{
+	margin-top:10px;
+}
+#submitData
+{
+	color: #fff;
+    background-color: #396e5e !important;
+    border-color: #396e5e !important;
+    border-radius: 0px !important;
+    height: 60px;
+    width: 115px;
+}
+#button4id
+{
+	color: #fff !important;
+    background-color: #396e5e !important;
+    border-color: #396e5e !important;
+    border-radius: 0px !important;
+    height: 60px !important;
+    width: 115px !important;
+}
+
+.panelPoinetr
+{
+	cursor:default !important;
+}
+.resizeofUser
+{
+	    margin-top: 21px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 15px;
+}
+#js-upload-submit
+{
+	margin-left: -120px;
+    border: #396c5d;
+    padding: 3px;
+}
+.modal
+{
+    margin-top:140px;
+}
+.margnfrombox
+{
+	margin-top:10px;
+}
+.otherTextDesign
+{
+	padding-left: 21px;
+}
+.othertextbox
+{
+	width: 213px;
+    margin-left: 21px;
+}
+.left-menu-button-container{
+	display: none;
+}
+.open>.dropdown-menu {
+    right: 0;
+    left: initial;
+}
+/* report page style  */
+form.selection {
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #ececec;
+}
+.selection .select-container {
+    width: 250px;
+    display: inline-block;
+    margin-right: 25px;
+}
+.selction-submit{
+	display: inline-block;
+	    vertical-align: top;
+}
+.selction-submit button, .submit-selection{
+	padding: 6px 20px;
+    border: none;
+    background-color: #517e71;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 16px;
+/*     float: right; */
+}
+.modal-content-noheight{
+	height: auto !important;
+}
+
+/* report page style end  */
+/* responsive pages  */
+@media(max-width: 992px){
+	.fostercare
+	{
+	margin-left: 0px !important;
+	}
+	.passwordinMobl{
+	text-align:left !important;
+	}
+	.cpisloginsvgheight {
+    margin-left: 140px !important;
+	}
+	.sign-up-button
+	{
+    margin-left: 140px !important;
+	}
+
+}
+@media(max-width: 768px){
+	button.navbar-toggle.menu-toggle span {
+    	background-color: #FFF;
+	}
+	button.navbar-toggle.menu-toggle {
+    	background-color: #386d5c;
+	}
+	
+	#footer{
+		position: relative !important;
+	}
+	.sign-up-button
+	{
+    margin-left: 75px !important;
+	}
+	.cpisloginsvgheight {
+    margin-left: 90px !important;
+	}
+	.left-section-menu{
+		    padding: 50px 0 50px 0;
+		    position: fixed;
+		    width: 60%;
+		    left: -60%;
+		    z-index: 1999;
+	}
+	.left-menu-button-container{
+		display: block;
+		position: fixed;
+		top: 220px;
+		left: 0;
+		width: 63px;
+		padding-left: 25px;
+		background-color: #386d5c;
+		z-index: 999;
+	}
+	.legends-section{
+		position: relative !important;
+	}
+	#largeMapContainer .legends-section{
+		position: absolute !important;
+	}
+	#largeMapContainer, #largeLineChartContainer {
+		position: fixed;
+	}
+	.callPopup{
+		z-index: 200;
+		position: relative;
+	}	
+	
+	#nav-list-menu{
+		width: 100%;
+		left: 50%;
+		transform: translate(-50%);
+		right: initial;
+		background-color: rgb(91, 117, 109);
+		margin-top: 49px;
+	}
+	.menuLogo{
+		height: 70px;
+    	width: 70px;
+	}
+	.open>.dropdown-menu {
+	    overflow-x: auto;
+	    max-width: 255px;
+	}
+}
+@media(max-width: 767px){
+	ul#menu {
+    background-color: rgb(131, 164, 153);
+}
+	.welcome-user li{
+		display: block !important;
+		text-align: center;
+		margin-right: 0 !important;
+	}
+}
+.logoutWithoutPishpin
+{
+	margin-top: 11px !important;
+    padding-right: 50px;
+}
+.nomenu
+{
+	margin-top: 12px;
+}
+.deleteconfirm
+{
+	margin-top:0px !important;
+}
+.casemodalSubmit
+{
+	color: #fff !important;
+    background-color: #396e5e !important;
+    border-color: #396e5e !important;
+    border-radius: 0px !important;
+    height: 60px !important;
+    width: 115px !important;
+}
+
+@media (max-width:642px) {
+.sign-up-button
+	{
+    margin-left: 45px !important;
+	}
+	.cpisloginsvgheight {
+    margin-left: 60px !important;
+	}
+}
+@media (max-width:592px) {
+	.modalHeight
+	{
+
+		height: 500px !important;
+	
+	}
+	.passwordinMobl{
+	text-align:left !important;
+	}
+	.sign-up-button
+	{
+    margin-left: 25px !important;
+	}
+	
+}
+.submitNoModalButton
+{
+	margin-top: 0px !important;
+}
+.unread{
+	background-color: lightgray;
+}
+
+
+/***** further changes in ccts header,dashboard,and report page @swarna ******/
+
+
+/***** ccts header ******/
+
+.language
+{
+	float: right;
+    color: #333;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 12px;
+    line-height: 40px;
+    width: 100%;
+    padding: 0;
+    margin-top: -29px;
+    margin-right: 43px;
+    margin-bottom: 0;
+}
+
+button.close {
+    opacity: .6;
+    margin-top: -53px;
+}
+button.trendchartClosebtn
+{
+	 margin-top: 0 !important;
+}
+
+.downloadexclbtn
+{
+	text-align: right;
+    margin-right: 2% !important;
+    margin-top: 20px;
+}
+
+
+.margin-leftsector
+{
+	 margin-left: 26px !important;
+}
+
+
+
